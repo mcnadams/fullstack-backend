@@ -5,7 +5,7 @@ const seedData = require('./seed-data');
 
 beforeAll(() => connect());
 
-//beforeEach(() => mongoose.connection.dropDatabase());
+beforeEach(() => mongoose.connection.dropDatabase());
 
 beforeEach(() => seedData());
 
