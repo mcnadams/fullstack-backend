@@ -19,6 +19,7 @@
   "author": "Bonnie McNeil <bonniebmcneil@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "chance": "^1.0.18",
     "eslint": "^5.16.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
