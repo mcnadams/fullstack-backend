@@ -2,9 +2,19 @@
   "name": "fullstack-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
-    "test": "jest --verbose --runInBand"
+    "test": "jest --verbose --runInBand",
+    "test:watch": "npm run test -- --watch",
+    "start": "node server.js",
+    "start:watch": "nodemon server.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "author": "Bonnie McNeil <bonniebmcneil@gmail.com>",
   "license": "ISC",
@@ -16,6 +26,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.5.13",
     "superagent": "^5.0.5"
