@@ -6,13 +6,13 @@ describe('Comment model', () => {
     const comment = new Comment({
       photoId: new mongoose.Types.ObjectId(),
       body: 'cool Comment',
-      name: 'Bonnie'
+      userId: new mongoose.Types.ObjectId()
     });
 
     expect(comment.toJSON()).toEqual({
       photoId: expect.any(mongoose.Types.ObjectId),
+      userId: expect.any(mongoose.Types.ObjectId),
       body: 'cool Comment',
-      name: 'Bonnie',
       _id: expect.any(mongoose.Types.ObjectId)
     });
   });

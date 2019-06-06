@@ -1,68 +1,73 @@
-require('../utils/data-helper');
-const request = require('supertest');
-const app = require('../../lib/app');
+const { getAgent } = require('../utils/data-helper');
+const mongoose = require('mongoose');
 
 describe('photo route tests', () => {
 
   it('posts a photo', () => {
-    return request(app)
-      .post('/api/v1/')
+    return getAgent()
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
         expect(res.body).toEqual({
           url: './path/toPhoto',
           caption: 'cool photo!',
-          _id: expect.any(String)
+          _id: expect.any(String),
+          userId: expect.any(String)
         });
       });
   });
 
   it('gets all photos', () => {
-    return request(app)
-      .get('/api/v1/')
+    return getAgent()
+      .get('/api/v1/photos')
       .then(res => {
         expect(res.body).toHaveLength(10);
       });
   });
 
   it('gets a photo by id', () => {
-    return request(app)
-      .post('/api/v1/')
+    return getAgent()
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
-        return request(app)
-          .get(`/api/v1/${res.body._id}`)
+        return getAgent()
+          .get(`/api/v1/photos/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
               caption: 'cool photo!',
-              _id: expect.any(String)
+              _id: expect.any(String),
+              userId: expect.any(String)
             });
           });
       });
   });
 
   it('deletes a photo', () => {
-    return request(app)
-      .post('/api/v1/')
+    return getAgent()
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
-        return request(app)
-          .delete(`/api/v1/${res.body._id}`)
+        return getAgent()
+          .delete(`/api/v1/photos/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
               caption: 'cool photo!',
-              _id: expect.any(String)
+              _id: expect.any(String),
+              userId: expect.any(String)
             });
           });
       });
