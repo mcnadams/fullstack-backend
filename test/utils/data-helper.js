@@ -9,21 +9,21 @@ beforeAll(() => connect());
 
 beforeEach(() => mongoose.connection.dropDatabase());
 
-// beforeEach(() => seedData());
+beforeEach(() => seedData());
 
-// const agent = request.agent(app);
-// beforeEach(() => {
-//   return agent
-//     .post('/api/v1/auth/signup')
-//     .send({ 
-//       name: 'Bonnie',
-//       handle: 'mcnadams',
-//       password: 'leland',
-//     });
-// });
+const agent = request.agent(app);
+beforeEach(() => {
+  return agent
+    .post('/api/v1/auth/signup')
+    .send({ 
+      name: 'Bonnie',
+      handle: 'mcnadams',
+      password: 'leland',
+    });
+});
 
 afterAll(() => mongoose.connection.close());
 
-// module.exports = {
-//   getAgent: () => agent
-// };
+module.exports = {
+  getAgent: () => agent
+};

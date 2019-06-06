@@ -1,11 +1,9 @@
-require('../utils/data-helper');
-const request = require('supertest');
-const app = require('../../lib/app');
+const { getAgent } = require('../utils/data-helper');
 
 describe('photo route tests', () => {
 
   it('posts a photo', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
@@ -21,7 +19,7 @@ describe('photo route tests', () => {
   });
 
   it('gets all photos', () => {
-    return request(app)
+    return getAgent()
       .get('/api/v1/photos')
       .then(res => {
         expect(res.body).toHaveLength(10);
@@ -29,14 +27,14 @@ describe('photo route tests', () => {
   });
 
   it('gets a photo by id', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
       })
       .then(res => {
-        return request(app)
+        return getAgent()
           .get(`/api/v1/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
@@ -49,14 +47,14 @@ describe('photo route tests', () => {
   });
 
   it('deletes a photo', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
       })
       .then(res => {
-        return request(app)
+        return getAgent()
           .delete(`/api/v1/photos/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({

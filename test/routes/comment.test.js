@@ -1,4 +1,4 @@
-require('../utils/data-helper');
+const { getAgent } = require('../utils/data-helper');
 const request = require('supertest');
 const app = require('../../lib/app');
 const mongoose = require('mongoose');
@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 describe('comment route tests', () => {
 
   it('posts a comment', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/comment')
       .send({
         photoId: new mongoose.Types.ObjectId(),
@@ -25,7 +25,7 @@ describe('comment route tests', () => {
   });
 
   it('gets comments by photo id', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/')
       .send({
         url: './path/toPhoto',
@@ -41,7 +41,7 @@ describe('comment route tests', () => {
             name: 'Bonnie'
           })
           .then(() => {
-            return request(app)
+            return getAgent()
               .post('/api/v1/comment')
               .send({
                 photoId: photo._id,
@@ -49,7 +49,7 @@ describe('comment route tests', () => {
                 name: 'Bonnie'
               })
               .then(() => {
-                return request(app)
+                return getAgent()
                   .get(`/api/v1/comment/${photo._id}`)
                   .then(res => {
                     expect(res.body).toHaveLength(2);
@@ -60,7 +60,7 @@ describe('comment route tests', () => {
   });
 
   it('deletes a comment', () => {
-    return request(app)
+    return getAgent()
       .post('/api/v1/comment')
       .send({
         photoId: new mongoose.Types.ObjectId(),
@@ -68,7 +68,7 @@ describe('comment route tests', () => {
         name: 'Bonnie'
       })
       .then(res => {
-        return request(app)
+        return getAgent()
           .delete(`/api/v1/comment/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
