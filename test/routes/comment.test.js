@@ -1,6 +1,4 @@
 const { getAgent } = require('../utils/data-helper');
-const request = require('supertest');
-const app = require('../../lib/app');
 const mongoose = require('mongoose');
 
 
@@ -26,21 +24,21 @@ describe('comment route tests', () => {
 
   it('gets comments by photo id', () => {
     return getAgent()
-      .post('/api/v1/')
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
       })
       .then(res => res.body)
       .then(photo => {
-        return request(app)
+        return getAgent()
           .post('/api/v1/comment')
           .send({
             photoId: photo._id,
             body: 'Hello',
             name: 'Bonnie'
           })
-          .then(() => {
+          .then(res => {
             return getAgent()
               .post('/api/v1/comment')
               .send({

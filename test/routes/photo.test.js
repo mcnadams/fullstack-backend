@@ -35,7 +35,7 @@ describe('photo route tests', () => {
       })
       .then(res => {
         return getAgent()
-          .get(`/api/v1/${res.body._id}`)
+          .get(`/api/v1/photos/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
