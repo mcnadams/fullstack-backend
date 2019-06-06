@@ -68,7 +68,6 @@ describe('comment route tests', () => {
         name: 'Bonnie'
       })
       .then(res => {
-        console.log('####', res.body._id);
         return request(app)
           .delete(`/api/v1/comment/${res.body._id}`)
           .then(res => {
