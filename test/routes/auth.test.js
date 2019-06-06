@@ -35,5 +35,4 @@ describe('auth route tests', () => {
       });
   });
 
-
 });

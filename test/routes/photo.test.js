@@ -1,4 +1,5 @@
 const { getAgent } = require('../utils/data-helper');
+const mongoose = require('mongoose');
 
 describe('photo route tests', () => {
 
@@ -7,13 +8,15 @@ describe('photo route tests', () => {
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
         expect(res.body).toEqual({
           url: './path/toPhoto',
           caption: 'cool photo!',
-          _id: expect.any(String)
+          _id: expect.any(String),
+          userId: expect.any(String)
         });
       });
   });
@@ -31,7 +34,8 @@ describe('photo route tests', () => {
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
         return getAgent()
@@ -40,7 +44,8 @@ describe('photo route tests', () => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
               caption: 'cool photo!',
-              _id: expect.any(String)
+              _id: expect.any(String),
+              userId: expect.any(String)
             });
           });
       });
@@ -51,7 +56,8 @@ describe('photo route tests', () => {
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
         return getAgent()
@@ -60,7 +66,8 @@ describe('photo route tests', () => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
               caption: 'cool photo!',
-              _id: expect.any(String)
+              _id: expect.any(String),
+              userId: expect.any(String)
             });
           });
       });

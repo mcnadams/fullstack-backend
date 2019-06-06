@@ -10,13 +10,13 @@ describe('comment route tests', () => {
       .send({
         photoId: new mongoose.Types.ObjectId(),
         body: 'Hello',
-        name: 'Bonnie'
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => {
         expect(res.body).toEqual({
           photoId: expect.any(String),
+          userId: expect.any(String),
           body: 'Hello',
-          name: 'Bonnie',
           _id: expect.any(String)
         });
       });
@@ -27,7 +27,8 @@ describe('comment route tests', () => {
       .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
-        caption: 'cool photo!'
+        caption: 'cool photo!',
+        userId: new mongoose.Types.ObjectId()
       })
       .then(res => res.body)
       .then(photo => {
@@ -35,16 +36,16 @@ describe('comment route tests', () => {
           .post('/api/v1/comment')
           .send({
             photoId: photo._id,
+            userId: new mongoose.Types.ObjectId(),
             body: 'Hello',
-            name: 'Bonnie'
           })
-          .then(res => {
+          .then(() => {
             return getAgent()
               .post('/api/v1/comment')
               .send({
                 photoId: photo._id,
+                userId: new mongoose.Types.ObjectId(),
                 body: 'Hello',
-                name: 'Bonnie'
               })
               .then(() => {
                 return getAgent()
@@ -62,8 +63,8 @@ describe('comment route tests', () => {
       .post('/api/v1/comment')
       .send({
         photoId: new mongoose.Types.ObjectId(),
-        body: 'Hello',
-        name: 'Bonnie'
+        userId: new mongoose.Types.ObjectId(),
+        body: 'Hello'
       })
       .then(res => {
         return getAgent()
@@ -71,8 +72,8 @@ describe('comment route tests', () => {
           .then(res => {
             expect(res.body).toEqual({
               photoId: expect.any(String),
+              userId: expect.any(String),
               body: 'Hello',
-              name: 'Bonnie',
               _id: expect.any(String)
             });
           });
