@@ -6,7 +6,7 @@ describe('photo route tests', () => {
 
   it('posts a photo', () => {
     return request(app)
-      .post('/api/v1/')
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
@@ -22,7 +22,7 @@ describe('photo route tests', () => {
 
   it('gets all photos', () => {
     return request(app)
-      .get('/api/v1/')
+      .get('/api/v1/photos')
       .then(res => {
         expect(res.body).toHaveLength(10);
       });
@@ -30,7 +30,7 @@ describe('photo route tests', () => {
 
   it('gets a photo by id', () => {
     return request(app)
-      .post('/api/v1/')
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
@@ -50,14 +50,14 @@ describe('photo route tests', () => {
 
   it('deletes a photo', () => {
     return request(app)
-      .post('/api/v1/')
+      .post('/api/v1/photos')
       .send({
         url: './path/toPhoto',
         caption: 'cool photo!'
       })
       .then(res => {
         return request(app)
-          .delete(`/api/v1/${res.body._id}`)
+          .delete(`/api/v1/photos/${res.body._id}`)
           .then(res => {
             expect(res.body).toEqual({
               url: './path/toPhoto',
